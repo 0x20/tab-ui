@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tab>
+    <products>
+        <!-- All product costs are measured in cents! -->
+        <product name="Snack" cost="60" category="food" />
+        <product name="Duvel" cost="250" category="alcohol" />
+        <product name="Jupiler" cost="200" category="alcohol" />
+        <product name="Mate" cost="200" category="soft" />
+        <product name="Soda" cost="100" category="soft" />
+        <product name="Water" cost="100" category="soft" />
+        <product name="€1" cost="100" />
+        <product name="€5" cost="500" />
+        <product name="€0.10" cost="10" />
+        <product name="€0.50" cost="50" />
+    </products>
+
+    <members>
+        <member name="CA$H" />
+        <member name="thequux" />
+        <member name="bloemist" />
+        <member name="elvis" />
+        <member name="betz" />
+        <member name="qwaxys" />
+        <member name="betty" />
+        <member name="enzian" />
+        <member name="superpumpie" />
+        <member name="sasja" />
+        <member name="merlijn" />
+    </members>
+</tab>

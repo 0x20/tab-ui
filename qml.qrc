@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MemberList.qml</file>
+        <file>ProductList.qml</file>
+        <file>TallyView.qml</file>
+        <file>LogView.qml</file>
+        <file>UtilView.qml</file>
+        <file>MainView.qml</file>
+        <file>controls/Button.qml</file>
+        <file>data.xml</file>
+    </qresource>
+</RCC>
