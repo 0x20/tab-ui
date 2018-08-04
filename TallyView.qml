@@ -98,7 +98,7 @@ Rectangle {
             horizontalAlignment: Text.AlignRight
 
             text: {
-                application.formatCurrency(tallyModel.total())
+                application.formatCurrency(tallyModel.total)
             }
         }
     }

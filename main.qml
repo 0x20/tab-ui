@@ -88,7 +88,7 @@ Window {
             }
         }
 
-        function total() {
+        property int total: {
             var total = 0
             for (var i = 0; i < count; i++) {
                 var item = get(i)
@@ -97,12 +97,13 @@ Window {
             return total
         }
 
-        function itemCount() {
+        property int itemCount: {
             var total = 0
             for (var i = 0; i < count; i++) {
                 var item = get(i)
                 total = total + item.count
             }
+            total
         }
     }
 
