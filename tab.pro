@@ -3,12 +3,16 @@
 ######################################################################
 
 TEMPLATE = app
-TARGET = tab
+TARGET = tab-ui
 DEPENDPATH += .
 INCLUDEPATH += .
 
-QT = core quick
+QT += core quick
 
 # Input
 SOURCES += main.cpp
 RESOURCES += qml.qrc
+
+INSTALL_ROOT=$(DESTDIR)
+target.path = /usr/bin
+INSTALLS += target
