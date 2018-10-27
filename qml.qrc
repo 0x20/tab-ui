@@ -9,5 +9,6 @@
         <file>MainView.qml</file>
         <file>controls/Button.qml</file>
         <file>data.xml</file>
+        <file>http.js</file>
     </qresource>
 </RCC>

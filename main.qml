@@ -11,6 +11,7 @@ Window {
     height: 480
     title: qsTr("Hello World")
 
+    property string url: Qt.application.arguments[1] || "http://localhost:4903"
 
     StackLayout {
         width: 1024
@@ -23,6 +24,10 @@ Window {
         MainView {
             id: mainView
         }
+    }
+
+    Component.onCompleted: {
+        loadAllData()
     }
 
     XmlListModel {
@@ -122,5 +127,9 @@ Window {
                      totalItems + " item" + (totalItems > 1 ? "s" : "") +
                      " for " + formatCurrency(totalCost))
         tallyModel.clear()
+    }
+
+    function loadAllData() {
+        console.log(JSON.stringify(url))
     }
 }
