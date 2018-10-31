@@ -115,7 +115,10 @@ Rectangle {
         anchors.margins: 10
         height: application.buttonHeight
         TqButton {
-            text: "Cancel"
+            text: "Cancel Transaction"
+            onClicked: {
+                tallyModel.clear()
+            }
         }
 
         TqButton {
@@ -124,6 +127,9 @@ Rectangle {
             enabled: tally.hasSelection
 
             text: "Remove Item"
+            onClicked: {
+                tallyModel.adjustQuantity(tallyList.currentIndex, -1)
+            }
         }
     }
 

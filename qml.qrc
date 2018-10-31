@@ -10,5 +10,6 @@
         <file>controls/TqButton.qml</file>
         <file>data.xml</file>
         <file>http.js</file>
+        <file>LoadingView.qml</file>
     </qresource>
 </RCC>

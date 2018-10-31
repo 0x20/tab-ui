@@ -153,6 +153,37 @@ Window {
             }
         }
 
+        function adjustQuantity(name, qty) {
+            var index = name;
+            var item;
+            if (name instanceof String) {
+                var found = false;
+                for (var i = 0; i < count; i++) {
+                    item = get(i);
+                    if (item.name === name) {
+                        index = i;
+                        found = true;
+                        break;
+
+                    }
+                }
+                if (!found) {
+                    return false;
+                }
+            } else if (index < 0 || index >= count) {
+                return false;
+            } else {
+                item = get(index);
+            }
+
+            if (item.count + qty <= 0) {
+                remove(index);
+            } else {
+                setProperty(index, "count", item.count + qty);
+            }
+            return true;
+        }
+
         property int total: {
             var total = 0
             for (var i = 0; i < count; i++) {
