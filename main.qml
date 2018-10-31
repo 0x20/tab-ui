@@ -3,6 +3,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.XmlListModel 2.0
+import "http.js" as Http
 
 Window {
     id: application
@@ -11,7 +12,7 @@ Window {
     height: 480
     title: qsTr("Hello World")
 
-    property string url: Qt.application.arguments[1] || "http://localhost:4903"
+    property string backend_url: Qt.application.arguments[1] || "http://localhost:4903"
 
     StackLayout {
         width: 1024
@@ -30,24 +31,48 @@ Window {
         loadAllData()
     }
 
-    XmlListModel {
+    ListModel {
         id: members
 
-       source: "data.xml"
-       query: "/tab/members/member"
+       function loadFromJson(json) {
+           clear()
+           for (var key in json) {
+               var member = json[key]
+               var converted_member= {
+                   name: member["display_name"],
+                   balance: member["balance"],
+               }
 
-       XmlRole { name: "name"; query: "string(@name)" }
+               console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(converted_member))
+               append(converted_member)
+           }
+           // TODO: sort the list?
+       }
     }
 
-    XmlListModel {
+    ListModel {
         id: productModel
-        source: "data.xml"
-        query: "/tab/products/product"
 
-        XmlRole { name: "name"; query: "string(@name)" }
-        XmlRole { name: "cost"; query: "number(@cost)" }
-        XmlRole { name: "category"; query: "string(@category)" }
+        function loadFromJson(json) {
+            var items = []
+            for (var key in json) {
+                var product = json[key]
+                console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(product))
+                items.push({
+                       name: product.name,
+                       cost: Math.round((product.price - 0) * 100),
+                       category: product.category,
+                       sort_key: product.sort_key,
+                })
+            }
+            items.sort(function (a,b) { return a.sort_key.localeCompare(b.sort_key)});
+            clear()
+            for (var i = 0; i < items.length; i++) {
+                append(items[i]);
+            }
 
+            // TODO: sort the list?
+        }
     }
 
     ListModel {
@@ -131,6 +156,14 @@ Window {
     }
 
     function loadAllData() {
-        console.log(JSON.stringify(url))
+        Http.get(backend_url + "/api/v1/accounts", function(xhr) {
+            var json = JSON.parse(xhr.responseText)
+            members.loadFromJson(json)
+        })
+        Http.get(backend_url + "/api/v1/products", function(xhr) {
+            var json = JSON.parse(xhr.responseText)
+            productModel.loadFromJson(json)
+        })
+        console.log(JSON.stringify(backend_url))
     }
 }

@@ -22,12 +22,20 @@ Rectangle {
             palette.button: {
                 switch(category) {
                 case "food": return "#cc6600"
-                case "alcohol": return "#0066cc"
-                case "soft": return "#880000"
+                case "alcohol": return "#efc026"
+                case "drink": return "#880000"
+                case "misc": return "#008800"
+                case "swag": return "#880088"
                 default: return "#444444"
                 }
             }
-            palette.buttonText: "white"
+            palette.buttonText: {
+                switch(category) {
+                case "alcohol": return "black"
+                default: return "white"
+                }
+            }
+
             font.family: "sans"
 
             onClicked: {
