@@ -14,8 +14,19 @@ Window {
     title: qsTr("Hello World")
 
     property int fontSize: 20
+    property int buttonWidth: 123
+    property int buttonHeight: (Math.sqrt(5) - 1) / 2 * buttonWidth
 
     property string backend_url: Qt.application.arguments[1] || "http://localhost:4903"
+    property bool layoutDebug: false
+
+    function layoutColor(color) {
+        if (layoutDebug) {
+            return color;
+        } else {
+            return "black";
+        }
+    }
 
     StackLayout {
         width: 1024
@@ -30,10 +41,12 @@ Window {
             id: mainView
         }
     }
-    Row {
+    RowLayout {
         anchors.top: mainStack.bottom
         anchors.left: mainStack.left
         anchors.right: parent.right
+
+        spacing: 10
 
         TqButton {
             text: "text-"
@@ -47,10 +60,15 @@ Window {
             text: "font size: " + fontSize
             font.pixelSize: fontSize
         }
+        TqButton {
+            text: "Toggle layout debug"
+            onClicked: layoutDebug = !layoutDebug
+        }
     }
 
     Component.onCompleted: {
         loadAllData()
+        console.log(application.buttonHeight)
     }
 
     ListModel {
@@ -65,7 +83,7 @@ Window {
                    balance: member["balance"],
                }
 
-               console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(converted_member))
+//               console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(converted_member))
                append(converted_member)
            }
            // TODO: sort the list?
@@ -79,7 +97,7 @@ Window {
             var items = []
             for (var key in json) {
                 var product = json[key]
-                console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(product))
+//                console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(product))
                 items.push({
                        name: product.name,
                        cost: Math.round((product.price - 0) * 100),

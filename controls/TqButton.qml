@@ -10,8 +10,12 @@ Button {
 
     palette.button: bgColor
     palette.buttonText: fgColor
+    opacity: if (enabled) { return 1.0 } else { return 0.5 }
     font.family: "sans"
     font.pixelSize: application.fontSize
+    implicitHeight: application.buttonHeight
+    implicitWidth: application.buttonWidth
+    anchors.margins: 10
 
     contentItem: Text {
         font: control.font

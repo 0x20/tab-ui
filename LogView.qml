@@ -1,7 +1,7 @@
 import QtQuick 2.0
 
 Rectangle {
-    color: "#202020"
+    color: application.layoutColor("#202020")
 
     ListView {
         anchors.fill: parent

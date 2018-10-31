@@ -4,7 +4,7 @@ import QtQuick.Controls.Styles 1.4
 import "controls"
 
 Rectangle {
-    color: "#002244"
+    color: application.layoutColor("#002244")
 
     signal selected(string name)
 
@@ -24,8 +24,8 @@ Rectangle {
     GridView {
         clip: true
         id: memberGrid
-        cellWidth: 140
-        cellHeight: cellWidth * (Math.sqrt(5) - 1) /2
+        cellWidth: application.buttonWidth + 10
+        cellHeight: application.buttonHeight + 10
         model: members
         delegate: memberEntry
         anchors.fill: parent

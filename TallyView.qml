@@ -1,8 +1,12 @@
 import QtQuick 2.0
+import QtQuick.Layouts 1.3
+import "controls"
 
 Rectangle {
     id: tally
-    color: "#440000"
+    color: application.layoutColor("#440000")
+
+    property bool hasSelection: tallyList.currentIndex !== -1
 
     ListView {
         anchors {
@@ -77,7 +81,7 @@ Rectangle {
         anchors {
             right: parent.right
             left: parent.left
-            bottom: parent.bottom
+            bottom: controls.top
         }
 
         Text {
@@ -100,6 +104,26 @@ Rectangle {
             text: {
                 application.formatCurrency(tallyModel.total)
             }
+        }
+    }
+
+    Item {
+        id: controls
+        anchors.left: parent.left
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        anchors.margins: 10
+        height: application.buttonHeight
+        TqButton {
+            text: "Cancel"
+        }
+
+        TqButton {
+            anchors.right: parent.right
+            anchors.margins: 0
+            enabled: tally.hasSelection
+
+            text: "Remove Item"
         }
     }
 

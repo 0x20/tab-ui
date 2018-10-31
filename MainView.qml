@@ -1,14 +1,16 @@
 import QtQuick 2.4
 
-Item {
+Rectangle {
+
+    color: "black"
     Rectangle {
         // This is a cheat to use anchor-based layout with fixed object sizes
         id: centerBlip
 
-        x:  parent.width - 140 * 3 - 12
-        y: 240
-        width: 2
-        height: 2
+        x:  parent.width - (application.buttonWidth + 10) * 3 - 10
+        y: 319
+        width: 0
+        height: 10
         color: "#004000"
         anchors.margins: 10
     }
@@ -21,7 +23,7 @@ Item {
             right: centerBlip.left
             top: parent.top
             bottom: utils.top
-            bottomMargin: 2
+            bottomMargin: 0
         }
 
     }

@@ -2,7 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 import "controls"
 Rectangle {
-    color: "#004400"
+    color: application.layoutColor("#004400")
 
     GridView {
         id: view
@@ -12,13 +12,13 @@ Rectangle {
 
         clip: true
         model: productModel
-        cellWidth: 140
-        cellHeight: cellWidth * (Math.sqrt(5) - 1) / 2
+        cellWidth: application.buttonWidth + 10
+        cellHeight: application.buttonHeight + 10
 
         delegate: TqButton {
             text: name
-            width: view.cellWidth - 10
-            height: view.cellHeight - 10
+            width: application.buttonWidth
+            height: application.buttonHeight
 
             bgColor: {
                 switch(category) {
