@@ -4,6 +4,7 @@ function get(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = (function(myxhr) {
         return function() {
+            if (xhr.readyState == xhr.DONE)
             callback(myxhr);
         }
     })(xhr);
