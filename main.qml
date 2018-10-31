@@ -3,6 +3,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.XmlListModel 2.0
+import "controls"
 import "http.js" as Http
 
 Window {
@@ -12,11 +13,14 @@ Window {
     height: 480
     title: qsTr("Hello World")
 
+    property int fontSize: 20
+
     property string backend_url: Qt.application.arguments[1] || "http://localhost:4903"
 
     StackLayout {
         width: 1024
         height: 768
+        id: mainStack
 
         anchors.centerIn: parent
 
@@ -24,6 +28,24 @@ Window {
 
         MainView {
             id: mainView
+        }
+    }
+    Row {
+        anchors.top: mainStack.bottom
+        anchors.left: mainStack.left
+        anchors.right: parent.right
+
+        TqButton {
+            text: "text-"
+            onClicked: { fontSize -= 1 }
+        }
+        TqButton {
+            text: "text+"
+            onClicked: { fontSize += 1 }
+        }
+        Text {
+            text: "font size: " + fontSize
+            font.pixelSize: fontSize
         }
     }
 
@@ -164,6 +186,5 @@ Window {
             var json = JSON.parse(xhr.responseText)
             productModel.loadFromJson(json)
         })
-        console.log(JSON.stringify(backend_url))
     }
 }

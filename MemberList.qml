@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
+import "controls"
+
 Rectangle {
     color: "#002244"
 
@@ -9,20 +11,13 @@ Rectangle {
     Component {
         id: memberEntry
 
-        Button {
-            palette.button: "#0088ff"
-            palette.buttonText: "#ffffff"
-
+        TqButton {
             onClicked: {
                 selected(name)
             }
-
-
-            //background: "#0088ff"
             width: memberGrid.cellWidth - 10
             height: memberGrid.cellHeight - 10
             text: name
-            font.family: "sans"
         }
     }
 

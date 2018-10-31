@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import "controls"
 Rectangle {
     color: "#004400"
 
@@ -14,12 +15,12 @@ Rectangle {
         cellWidth: 140
         cellHeight: cellWidth * (Math.sqrt(5) - 1) / 2
 
-        delegate: Button {
+        delegate: TqButton {
             text: name
             width: view.cellWidth - 10
             height: view.cellHeight - 10
 
-            palette.button: {
+            bgColor: {
                 switch(category) {
                 case "food": return "#cc6600"
                 case "alcohol": return "#efc026"
@@ -29,14 +30,12 @@ Rectangle {
                 default: return "#444444"
                 }
             }
-            palette.buttonText: {
+            fgColor: {
                 switch(category) {
                 case "alcohol": return "black"
                 default: return "white"
                 }
             }
-
-            font.family: "sans"
 
             onClicked: {
                 tallyModel.addItem(name, cost, 1)

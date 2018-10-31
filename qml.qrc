@@ -7,7 +7,7 @@
         <file>LogView.qml</file>
         <file>UtilView.qml</file>
         <file>MainView.qml</file>
-        <file>controls/Button.qml</file>
+        <file>controls/TqButton.qml</file>
         <file>data.xml</file>
         <file>http.js</file>
     </qresource>
