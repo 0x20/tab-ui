@@ -12,6 +12,7 @@ Rectangle {
             color: "white"
             text: message
             font.family: "monospace"
+            font.pixelSize: application.fontSize
         }
         onCountChanged: {
             currentIndex = count - 1
