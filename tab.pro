@@ -12,9 +12,13 @@ QT += core quick
 include($$PWD/vendor/vendor.pri)
 
 # Input
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    tqmembermodel.cpp
 RESOURCES += qml.qrc
 
 INSTALL_ROOT=$(DESTDIR)
 target.path = /usr/bin
 INSTALLS += target
+
+HEADERS += \
+    tqmembermodel.h

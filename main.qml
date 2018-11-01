@@ -3,6 +3,7 @@ import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
 import QtQuick.XmlListModel 2.0
+import com.thequux.tab 1.0
 import "controls"
 import "http.js" as Http
 
@@ -51,7 +52,6 @@ Window {
                 reset()
             }
             onCanceled: {
-                console.log("cancelled in main")
                 mainStack.state = "main"
                 reset()
             }
@@ -105,24 +105,28 @@ Window {
         console.log(application.buttonHeight)
     }
 
-    ListModel {
+    MemberModel {
         id: members
-
-       function loadFromJson(json) {
-           clear()
-           for (var key in json) {
-               var member = json[key]
-               var converted_member= {
-                   name: member["display_name"],
-                   balance: member["balance"],
-               }
-
-//               console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(converted_member))
-               append(converted_member)
-           }
-           // TODO: sort the list?
-       }
     }
+
+//    ListModel {
+//        id: members
+
+//       function loadFromJson(json) {
+//           clear()
+//           for (var key in json) {
+//               var member = json[key]
+//               var converted_member= {
+//                   name: member["display_name"],
+//                   balance: member["balance"],
+//               }
+
+////               console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(converted_member))
+//               append(converted_member)
+//           }
+//           // TODO: sort the list?
+//       }
+//    }
 
     ListModel {
         id: productModel
