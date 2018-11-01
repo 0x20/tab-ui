@@ -46,6 +46,10 @@ Window {
             onSwitchToStats: {
                 mainStack.state = "stats"
             }
+
+            onPurchaseCommand: {
+                application.handlePurchase(member, bill)
+            }
         }
 
         TransferView {
@@ -116,7 +120,6 @@ Window {
 
     Component.onCompleted: {
         loadAllData()
-        console.log(application.buttonHeight)
     }
 
     MemberModel {
@@ -130,7 +133,6 @@ Window {
             var items = []
             for (var key in json) {
                 var product = json[key]
-//                console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(product))
                 items.push({
                        name: product.name,
                        cost: Math.round((product.price - 0) * 100),

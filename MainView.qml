@@ -1,4 +1,6 @@
 import QtQuick 2.4
+import QtQuick.Layouts 1.3
+import "controls"
 
 Rectangle {
 
@@ -6,7 +8,12 @@ Rectangle {
     signal switchToDeposit()
     signal switchToStats()
 
+    signal depositCommand(string member, int amount)
+    signal purchaseCommand(string member, var bill)
+
     id: mainView
+
+    property bool depositMode: false
 
     color: "black"
     Rectangle {
@@ -53,20 +60,39 @@ Rectangle {
             right: centerBlip.left
         }
 
-        onSwitchToDeposit: parent.switchToDeposit()
+        onSwitchToDeposit: {
+            depositMode = !depositMode
+        }
+
         onSwitchToStats: parent.switchToStats()
         onSwitchToTransfer: parent.switchToTransfer()
     }
 
-    ProductList {
-        id: productList
-
+    StackLayout {
         anchors {
             left: parent.left
             right: centerBlip.left
             top: centerBlip.bottom
             bottom: parent.bottom
         }
+
+        currentIndex: depositMode ? 1 : 0
+
+        ProductList {
+            id: productList
+        }
+
+
+        Item {
+            NumberEntry {
+                id: depositEntry
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+
+                hasAccept: false
+            }
+        }
+
     }
 
     MemberList {
@@ -79,13 +105,23 @@ Rectangle {
         }
 
         onSelected: {
-            var bill = []
-            for (var i = 0; i < tallyModel.count; i++) {
-                var item = tallyModel.get(i)
-                bill.push(item)
-            }
+            if (depositMode && depositEntry.value > 0) {
+                depositCommand(name, depositEntry.value)
+                depositMode = false
+            } else if (!depositMode && tallyModel.count > 0) {
+                var bill = []
+                for (var i = 0; i < tallyModel.count; i++) {
+                    var item = tallyModel.get(i)
+                    bill.push(item)
+                }
+                purchaseCommand(name, bill)
+                tallyModel.clear()
+            } else {
+                var pos = members.memberPosition(name)
+                var member = members.get(pos)
 
-            application.handlePurchase(name, bill)
+                logModel.log(member["name"] + " has a balance of " + formatCurrency(member["balance"]))
+            }
         }
     }
 }

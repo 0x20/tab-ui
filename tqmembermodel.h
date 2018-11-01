@@ -29,8 +29,9 @@ public:
 
     // Loading
     Q_INVOKABLE bool loadFromJson(QMap<QString, QVariant> data);
-    Q_INVOKABLE int memberPosition(QString &internal_name) const;
-    Q_INVOKABLE void applyDelta(QString &internal_name, int dBalance, int dItems);
+	Q_INVOKABLE int memberPosition(QString internal_name) const;
+	Q_INVOKABLE void applyDelta(QString internal_name, int dBalance, int dItems);
+	Q_INVOKABLE QVariant get(QVariant id);
 
     // Header:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;

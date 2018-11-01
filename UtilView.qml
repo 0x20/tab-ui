@@ -17,7 +17,7 @@ Rectangle {
         anchors.left: parent.left
         spacing: 10
         TqButton {
-            text: "Deposit"
+            text: depositMode ? "Buy" : "Deposit"
             onClicked: switchToDeposit()
         }
 

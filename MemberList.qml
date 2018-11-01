@@ -18,12 +18,12 @@ Rectangle {
 
         TqButton {
             onClicked: {
-                selectedName = name;
-                selected(name)
+                selectedName = internal_name;
+                selected(internal_name)
             }
 
             bgColor: "primary"
-            shade: (selectedName == name && selectionEnabled) ? 4 : 0
+            shade: (selectedName == internal_name && selectionEnabled) ? 4 : 0
             width: memberGrid.cellWidth - 10
             height: memberGrid.cellHeight - 10
             text: name

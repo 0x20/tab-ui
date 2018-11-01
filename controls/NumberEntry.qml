@@ -5,7 +5,7 @@ import "../Colors.js" as Colors
 Item {
 
     property int value: 0
-    property bool hasAccept: true
+    property bool hasAccept: false
     implicitWidth: padLayout.implicitWidth
     implicitHeight: padLayout.implicitHeight + fontSize + 30
 
@@ -39,6 +39,13 @@ Item {
             text: "0"
             onClicked: addDigit(0)
         }
+        TqButton {
+            text: "Accept"
+            bgColor: "secondary2"
+            onClicked: accepted(value)
+            visible: hasAccept
+        }
+
         Item {}
     }
 

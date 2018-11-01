@@ -190,11 +190,11 @@ bool TqMemberModel::loadFromJson(QMap<QString, QVariant> data) {
     return true;
 }
 
-int TqMemberModel::memberPosition(QString &internal_name) const {
+int TqMemberModel::memberPosition(QString internal_name) const {
     return m_memberPositions.value(internal_name, -1);
 }
 
-void TqMemberModel::applyDelta(QString &internal_name, int dBalance, int dItems) {
+void TqMemberModel::applyDelta(QString internal_name, int dBalance, int dItems) {
     int starting_pos = m_memberPositions.value(internal_name, -1);
     if (starting_pos < 0) {
         return;
@@ -235,4 +235,32 @@ void TqMemberModel::applyDelta(QString &internal_name, int dBalance, int dItems)
     }
     dataChanged(createIndex(qMin(starting_pos, target_pos), 0),
                 createIndex(qMax(starting_pos, target_pos), 0));
+}
+
+QVariant TqMemberModel::get(QVariant id) {
+	int memberId = -1;
+	if (id.type() == QVariant::String) {
+		memberId = m_memberPositions.value(id.toString(), -1);
+	}
+	if (memberId == -1) {
+		bool success = true;
+		memberId = id.toInt(&success);
+		if (!success) {
+			return QVariant();
+		}
+	}
+
+	if (memberId < 0 || memberId >= m_members.length()) {
+		return QVariant();
+	}
+
+	// We have a valid member ID; construct the result hash
+	BarMember *member = &m_members[memberId];
+
+	QVariantMap result = QVariantMap();
+	result["name"] = member->name;
+	result["internal_name"] = member->internal_name;
+	result["balance"] = member->balance;
+	result["item_count"] = member->items;
+	return result;
 }
