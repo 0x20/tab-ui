@@ -9,6 +9,8 @@ INCLUDEPATH += .
 
 QT += core quick
 
+include($$PWD/vendor/vendor.pri)
+
 # Input
 SOURCES += main.cpp
 RESOURCES += qml.qrc

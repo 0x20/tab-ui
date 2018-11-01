@@ -11,5 +11,8 @@
         <file>data.xml</file>
         <file>http.js</file>
         <file>LoadingView.qml</file>
+        <file>Colors.js</file>
+        <file>TransferView.qml</file>
+        <file>controls/NumberEntry.qml</file>
     </qresource>
 </RCC>

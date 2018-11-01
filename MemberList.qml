@@ -1,20 +1,28 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Styles 1.4
+import "Colors.js" as Colors
 import "controls"
+
 
 Rectangle {
     color: application.layoutColor("#002244")
 
     signal selected(string name)
+    property string selectedName: null
+    property bool selectionEnabled: false
+    property bool hasSelection: selectedName != ""
 
     Component {
         id: memberEntry
 
         TqButton {
             onClicked: {
+                selectedName = name;
                 selected(name)
             }
+
+            bgColor: (selectedName == name && selectionEnabled) ? Colors.primary[4] : Colors.primary[0]
             width: memberGrid.cellWidth - 10
             height: memberGrid.cellHeight - 10
             text: name

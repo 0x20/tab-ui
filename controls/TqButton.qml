@@ -1,11 +1,12 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.2
+import "../Colors.js" as Colors
 Button {
     id: control
 //    property string content: "Undefined"
 //    text: { content.replace("&", "&&") }
 
-    property string bgColor: "#0088ff"
+    property string bgColor: Colors.primary[0]
     property string fgColor: "white"
 
     palette.button: bgColor

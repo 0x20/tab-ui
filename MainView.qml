@@ -2,6 +2,12 @@ import QtQuick 2.4
 
 Rectangle {
 
+    signal switchToTransfer()
+    signal switchToDeposit()
+    signal switchToStats()
+
+    id: mainView
+
     color: "black"
     Rectangle {
         // This is a cheat to use anchor-based layout with fixed object sizes
@@ -46,6 +52,10 @@ Rectangle {
             bottom: centerBlip.top
             right: centerBlip.left
         }
+
+        onSwitchToDeposit: parent.switchToDeposit()
+        onSwitchToStats: parent.switchToStats()
+        onSwitchToTransfer: parent.switchToTransfer()
     }
 
     ProductList {

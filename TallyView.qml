@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.3
+import "Colors.js" as Colors
 import "controls"
 
 Rectangle {
@@ -68,7 +69,7 @@ Rectangle {
         }
 
         highlight: Rectangle {
-            color: "#88ccff"
+            color: Colors.primary[4]
 
         }
 
@@ -116,6 +117,8 @@ Rectangle {
         height: application.buttonHeight
         TqButton {
             text: "Cancel Transaction"
+            visible: tallyModel.count > 0
+            bgColor: Colors.secondary1[0]
             onClicked: {
                 tallyModel.clear()
             }
@@ -124,7 +127,8 @@ Rectangle {
         TqButton {
             anchors.right: parent.right
             anchors.margins: 0
-            enabled: tally.hasSelection
+            visible: tally.hasSelection
+            bgColor: Colors.secondary1[0]
 
             text: "Remove Item"
             onClicked: {

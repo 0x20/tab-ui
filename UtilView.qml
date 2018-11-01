@@ -4,6 +4,11 @@ import QtQuick.Layouts 1.3
 import "controls"
 import "http.js" as Http
 Rectangle {
+    signal switchToTransfer()
+    signal switchToDeposit()
+    signal switchToStats()
+    signal foo()
+
     color: application.layoutColor("#004040")
     height: application.buttonHeight + 20
     RowLayout {
@@ -13,10 +18,12 @@ Rectangle {
         spacing: 10
         TqButton {
             text: "Deposit"
+            onClicked: switchToDeposit()
         }
 
         TqButton {
             text: "Transfer"
+            onClicked: switchToTransfer()
         }
 
         TqButton {
@@ -31,6 +38,7 @@ Rectangle {
 
         TqButton {
             text: "Stats"
+            onClicked: switchToStats()
         }
     }
 }

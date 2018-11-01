@@ -35,11 +35,45 @@ Window {
 
         anchors.centerIn: parent
 
-        currentIndex: 0
+        state: "main"
 
         MainView {
             id: mainView
+            onSwitchToTransfer: {
+                mainStack.state = "transfer"
+            }
         }
+
+        TransferView {
+            id: transferView
+            onAccepted: {
+                mainStack.state = "main"
+                reset()
+            }
+            onCanceled: {
+                console.log("cancelled in main")
+                mainStack.state = "main"
+                reset()
+            }
+        }
+
+        states: [
+            State {
+                name: "main"
+                PropertyChanges {
+                    target: mainStack
+                    currentIndex: 0
+                }
+            },
+            State {
+                name: "transfer"
+                PropertyChanges {
+                    target: mainStack
+                    currentIndex: 1
+                }
+            }
+
+        ]
     }
     RowLayout {
         anchors.top: mainStack.bottom
