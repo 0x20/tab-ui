@@ -22,43 +22,12 @@ Item {
         columnSpacing: 10
         rowSpacing: 10
 
-        TqButton {
-            text: "1"
-            onClicked: addDigit(1)
-        }
-        TqButton {
-            text: "2"
-            onClicked: addDigit(2)
-        }
-        TqButton {
-            text: "3"
-            onClicked: addDigit(3)
-        }
-
-        TqButton {
-            text: "4"
-            onClicked: addDigit(4)
-        }
-        TqButton {
-            text: "5"
-            onClicked: addDigit(5)
-        }
-        TqButton {
-            text: "6"
-            onClicked: addDigit(6)
-        }
-
-        TqButton {
-            text: "7"
-            onClicked: addDigit(7)
-        }
-        TqButton {
-            text: "8"
-            onClicked: addDigit(8)
-        }
-        TqButton {
-            text: "9"
-            onClicked: addDigit(9)
+        Repeater {
+            model: 9
+            TqButton {
+                text: index+1
+                onClicked: addDigit(index+1)
+            }
         }
 
         TqButton {

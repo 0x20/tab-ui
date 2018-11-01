@@ -8,15 +8,29 @@ Button {
 
     property string bgColor: Colors.primary[0]
     property string fgColor: "white"
+    property int shade: 0
+    property int downShade: 4
 
-    palette.button: bgColor
-    palette.buttonText: fgColor
+    palette.buttonText: "white"
+    palette.light:(Colors.hasOwnProperty(bgColor)) ? Colors[bgColor][4] : Qt.lighter(bgColor)
     opacity: if (enabled) { return 1.0 } else { return 0.5 }
     font.family: "sans"
     font.pixelSize: application.fontSize
     implicitHeight: application.buttonHeight
     implicitWidth: application.buttonWidth
     anchors.margins: 10
+
+    background: Rectangle {
+        implicitHeight: application.buttonHeight
+        implicitWidth: application.buttonWidth
+        color: {
+            if (Colors.hasOwnProperty(bgColor)) {
+                Colors[bgColor][control.down ? downShade : shade]
+            } else {
+                control.down ? Qt.lighter(control.bgColor) : control.bgColor
+            }
+        }
+    }
 
     contentItem: Text {
         font: control.font

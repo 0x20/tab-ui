@@ -14,5 +14,6 @@
         <file>Colors.js</file>
         <file>TransferView.qml</file>
         <file>controls/NumberEntry.qml</file>
+        <file>StatsView.qml</file>
     </qresource>
 </RCC>

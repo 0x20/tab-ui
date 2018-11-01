@@ -22,7 +22,8 @@ Rectangle {
                 selected(name)
             }
 
-            bgColor: (selectedName == name && selectionEnabled) ? Colors.primary[4] : Colors.primary[0]
+            bgColor: "primary"
+            shade: (selectedName == name && selectionEnabled) ? 4 : 0
             width: memberGrid.cellWidth - 10
             height: memberGrid.cellHeight - 10
             text: name

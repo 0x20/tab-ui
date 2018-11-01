@@ -43,6 +43,9 @@ Window {
             onSwitchToTransfer: {
                 mainStack.state = "transfer"
             }
+            onSwitchToStats: {
+                mainStack.state = "stats"
+            }
         }
 
         TransferView {
@@ -55,6 +58,11 @@ Window {
                 mainStack.state = "main"
                 reset()
             }
+        }
+
+        StatsView {
+            id: statsView
+            onCanceled: mainStack.state = "main"
         }
 
         states: [
@@ -71,8 +79,14 @@ Window {
                     target: mainStack
                     currentIndex: 1
                 }
+            },
+            State {
+                name: "stats"
+                PropertyChanges {
+                    target: mainStack
+                    currentIndex: 2
+                }
             }
-
         ]
     }
     RowLayout {
