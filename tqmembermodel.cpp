@@ -151,8 +151,18 @@ bool TqMemberModel::loadFromJson(QMap<QString, QVariant> data) {
     }
 
     qSort(newMembers.begin(), newMembers.end(), [](BarMember &a, BarMember &b) {
-        if (a.items > b.items)
+        // Cash should be sorted first
+        if (a.internal_name == "--cash--") {
             return true;
+        } else if (b.internal_name == "--cash--") {
+            return false;
+        }
+
+        if (a.items > b.items) {
+            return true;
+        } else if (a.items < b.items) {
+            return false;
+        }
         return a.name < b.name;
     });
 
@@ -189,8 +199,8 @@ void TqMemberModel::applyDelta(QString &internal_name, int dBalance, int dItems)
     if (starting_pos < 0) {
         return;
     }
-    m_members[starting_pos].balance += dBalance;
-    m_members[starting_pos].items += dItems;
+    m_members[starting_pos].balance = dBalance;
+    m_members[starting_pos].items = dItems;
     int newItemCount = m_members[starting_pos].items;
 
     // sort if necessary

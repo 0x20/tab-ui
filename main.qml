@@ -109,25 +109,6 @@ Window {
         id: members
     }
 
-//    ListModel {
-//        id: members
-
-//       function loadFromJson(json) {
-//           clear()
-//           for (var key in json) {
-//               var member = json[key]
-//               var converted_member= {
-//                   name: member["display_name"],
-//                   balance: member["balance"],
-//               }
-
-////               console.log("Product " + JSON.stringify(key) + ": " + JSON.stringify(converted_member))
-//               append(converted_member)
-//           }
-//           // TODO: sort the list?
-//       }
-//    }
-
     ListModel {
         id: productModel
 
