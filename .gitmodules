@@ -1,0 +1,3 @@
+[submodule "vendor/com/github/benlau/quickpromise"]
+	path = vendor/com/github/benlau/quickpromise
+	url = https://github.com/benlau/quickpromise.git
