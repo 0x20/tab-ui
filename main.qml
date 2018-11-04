@@ -50,11 +50,26 @@ Window {
             onPurchaseCommand: {
                 application.handlePurchase(member, bill)
             }
+
+            onDepositCommand: {
+                performTxn(member + " deposited € " + (amount / 100).toFixed(2),
+                           "deposit", {
+                              member: member,
+                              amount: (amount / 100).toFixed(2),
+                          });
+            }
         }
 
         TransferView {
             id: transferView
             onAccepted: {
+                // from, to, amount
+                performTxn(from + " gave " + to + " " + formatCurrency(amount),
+                           "xfer", {
+                               payer: from,
+                               payee: to,
+                               amount: (amount / 100).toFixed(2),
+                           });
                 mainStack.state = "main"
                 reset()
             }
@@ -259,6 +274,7 @@ Window {
         //var locale = Qt.locale("en_US");
 
         return (cents / 100).toLocaleCurrencyString(locale, "€ ")
+
     }
 
     function handlePurchase(name, bill) {
@@ -279,11 +295,11 @@ Window {
             totalItems += item.count
         }
 
-        var logEntry = logModel.logPending(name + " bought " +
-                     totalItems + " item" + (totalItems > 1 ? "s" : "") +
-                     " for " + formatCurrency(totalCost))
+        performTxn(name + " bought " + totalItems + " item" +
+                   (totalItems > 1 ? "s" : "") + " for " + formatCurrency(totalCost),
+                   "buy", req);
 
-        console.log(JSON.stringify(req))
+
         Http.post(backend_url + "/api/v1/txn/buy", req, function(xhr) {
             var json = JSON.parse(xhr.responseText);
             for (var member_name in json.members) {
@@ -294,6 +310,18 @@ Window {
         });
 
         tallyModel.clear()
+    }
+
+    function performTxn(logMsg, type, req) {
+        var logEntry = logModel.logPending(logMsg);
+        Http.post(backend_url + "/api/v1/txn/" + type, req, function(xhr) {
+            var json = JSON.parse(xhr.responseText);
+            for (var member_name in json.members) {
+                var member = json.members[member_name];
+                members.applyDelta(member_name, Math.round(member.balance * 100), member.items)
+            }
+            logEntry.confirm(json.message);
+        });
     }
 
     function loadAllData() {

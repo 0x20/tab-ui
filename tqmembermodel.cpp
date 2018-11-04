@@ -204,9 +204,12 @@ void TqMemberModel::applyDelta(QString internal_name, int dBalance, int dItems) 
     m_members[starting_pos].items = dItems;
     int newItemCount = m_members[starting_pos].items;
 
-    // sort if necessary
-    int target_pos = starting_pos;
-    while (target_pos > 0 && newItemCount > m_members[target_pos-1].items) {
+	// sort if necessary
+	int target_pos = starting_pos;
+	if (internal_name == "--cash--") {
+		goto notify;
+	}
+	while (target_pos > 1 && newItemCount > m_members[target_pos-1].items) {
         target_pos--;
     }
     while (target_pos < m_members.length() - 1 && newItemCount < m_members[target_pos+1].items) {
@@ -238,6 +241,7 @@ void TqMemberModel::applyDelta(QString internal_name, int dBalance, int dItems) 
         }
     }
 
+    notify:
     dataChanged(createIndex(qMin(starting_pos, target_pos), 0),
                 createIndex(qMax(starting_pos, target_pos), 0));
 }
