@@ -9,7 +9,13 @@ Rectangle {
 
         delegate: Text {
             //height: font.pointSize
-            color: "white"
+            color: switch (status) {
+                   case "pending": return "#aaaaaa";
+                   case "confirmed": return "#ffffff";
+                   case "failed": return "#FF0000";
+                   default: return "#0088ff";
+                   }
+
             text: message
             font.family: "monospace"
             font.pixelSize: application.fontSize

@@ -38,7 +38,7 @@ Rectangle {
             }
 
             onClicked: {
-                tallyModel.addItem(name, cost, 1)
+                tallyModel.addItem(internal_name, name, cost, 1)
             }
         }
     }

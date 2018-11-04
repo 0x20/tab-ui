@@ -1,5 +1,6 @@
 #include <math.h>
 #include <algorithm>
+#include <iostream>
 #include "tqmembermodel.h"
 
 TqMemberModel::TqMemberModel(QObject *parent)
@@ -212,27 +213,31 @@ void TqMemberModel::applyDelta(QString internal_name, int dBalance, int dItems) 
         target_pos++;
     }
 
+
+
     if (target_pos < starting_pos) {
         BarMember temp = m_members[starting_pos];
         std::copy_backward(
                     m_members.begin() + target_pos,
-                    m_members.begin() + starting_pos - 1,
-                    m_members.begin() + target_pos + 1);
-        m_members[target_pos] = temp;
+		            m_members.begin() + starting_pos /* - 1 */,
+		            m_members.begin() + starting_pos + 1);
+		m_members[target_pos] = temp;
         for (int i = target_pos; i <= starting_pos; i++) {
+			//printf("new order: %2d %s\n", i, m_members[i].name)
             m_memberPositions[m_members[i].internal_name] = i;
         }
     } else if (target_pos > starting_pos) {
         BarMember temp = m_members[starting_pos];
         std::copy(
                     m_members.begin() + starting_pos + 1,
-                    m_members.begin() + target_pos - 1,
-                    m_members.begin() + starting_pos);
+		            m_members.begin() + target_pos + 1,
+		            m_members.begin() + starting_pos);
         m_members[target_pos] = temp;
         for (int i = starting_pos; i <= target_pos; i++) {
             m_memberPositions[m_members[i].internal_name] = i;
         }
     }
+
     dataChanged(createIndex(qMin(starting_pos, target_pos), 0),
                 createIndex(qMax(starting_pos, target_pos), 0));
 }

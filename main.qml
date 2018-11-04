@@ -134,6 +134,7 @@ Window {
             for (var key in json) {
                 var product = json[key]
                 items.push({
+                       internal_name: key,
                        name: product.name,
                        cost: Math.round((product.price - 0) * 100),
                        category: product.category,
@@ -152,22 +153,36 @@ Window {
 
     ListModel {
         id: logModel
-        ListElement {
-            message: "foo"
-        }
-        ListElement {
-            message: "bar"
-        }
 
         function log(message) {
-            append({message: message})
+            append({message: message, status: "pending"})
+        }
+
+        function logPending(message) {
+            var i = count;
+            append({message: message, status: "pending"})
+            return {
+                confirm: function(newMessage) {
+                    if (newMessage) {
+                        set(i, {
+                                message: newMessage,
+                                status: "confirmed",
+                            });
+                    } else {
+                        setProperty(i, "status", "confirmed");
+                    }
+                },
+                fail: function() {
+                    setProperty(i, "status", "failed")
+                },
+            }
         }
     }
 
     ListModel {
         id: tallyModel
 
-        function addItem(name, cost, qty) {
+        function addItem(currency, name, cost, qty) {
             qty = qty || 1;
 
             var found = false;
@@ -181,6 +196,7 @@ Window {
             }
             if (!found) {
                 append({
+                           currency: currency,
                            name: name,
                            cost: cost,
                            count: qty,
@@ -188,14 +204,14 @@ Window {
             }
         }
 
-        function adjustQuantity(name, qty) {
+        function adjustQuantity(currency, qty) {
             var index = name;
             var item;
-            if (name instanceof String) {
+            if (currency instanceof String) {
                 var found = false;
                 for (var i = 0; i < count; i++) {
                     item = get(i);
-                    if (item.name === name) {
+                    if (item.currency === currency) {
                         index = i;
                         found = true;
                         break;
@@ -249,15 +265,34 @@ Window {
         var totalCost = 0
         var totalItems = 0
 
+        var req = {
+            member: name,
+            products: {},
+        };
+
+
         for (var i = 0; i < bill.length; i++) {
             var item = bill[i]
+            req.products[item.currency] =
+                    (req.products[item.currency] || 0) + item.count;
             totalCost += item.cost * item.count
             totalItems += item.count
         }
 
-        logModel.log(name + " bought " +
+        var logEntry = logModel.logPending(name + " bought " +
                      totalItems + " item" + (totalItems > 1 ? "s" : "") +
                      " for " + formatCurrency(totalCost))
+
+        console.log(JSON.stringify(req))
+        Http.post(backend_url + "/api/v1/txn/buy", req, function(xhr) {
+            var json = JSON.parse(xhr.responseText);
+            for (var member_name in json.members) {
+                var member = json.members[member_name];
+                members.applyDelta(member_name, member.balance, member.items)
+            }
+            logEntry.confirm(json.message);
+        });
+
         tallyModel.clear()
     }
 
