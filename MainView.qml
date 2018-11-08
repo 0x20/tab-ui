@@ -89,7 +89,7 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
 
-                hasAccept: false
+                hasNegate: true
             }
         }
 
@@ -108,6 +108,7 @@ Rectangle {
             if (depositMode && depositEntry.value > 0) {
                 depositCommand(name, depositEntry.value)
                 depositMode = false
+                depositEntry.reset()
             } else if (!depositMode && tallyModel.count > 0) {
                 var bill = []
                 for (var i = 0; i < tallyModel.count; i++) {

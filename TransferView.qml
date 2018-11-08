@@ -6,7 +6,7 @@ import "controls"
 Rectangle {
     color: "black"
 
-    id: "view"
+    id: view
 
     signal accepted(string from, string to, int amount)
     signal canceled
@@ -14,7 +14,7 @@ Rectangle {
     function reset() {
         fromSelector.selectedName = null
         toSelector.selectedName = null
-        amount.value = 0
+        amount.reset()
     }
 
     MemberList {

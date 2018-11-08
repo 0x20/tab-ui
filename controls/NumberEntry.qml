@@ -4,16 +4,20 @@ import "../Colors.js" as Colors
 
 Item {
 
-    property int value: 0
-    property bool hasAccept: false
+    property int value: absValue * (sign ? -1 : 1);
+    property int absValue: 0
+    property bool hasNegate: false
+    property bool sign: false
     implicitWidth: padLayout.implicitWidth
     implicitHeight: padLayout.implicitHeight + fontSize + 30
 
-    signal accepted(int value)
-
-
     function addDigit(digit) {
-        value = value * 10 + digit;
+        absValue = absValue * 10 + digit;
+    }
+
+    function reset() {
+        sign = false;
+        absValue = 0;
     }
 
     GridLayout {
@@ -30,20 +34,27 @@ Item {
             }
         }
 
+        Rectangle {
+            width: 1
+            height: 1
+            opacity: 0
+            visible: !hasNegate
+        }
+
         TqButton {
-            text: "←"
-            bgColor: Colors.secondary1[0]
-            onClicked: { value = Math.floor(value / 10) }
+            text: "-"
+            bgColor: "secondary2"
+            onClicked: { sign = !sign }
+            visible: hasNegate
         }
         TqButton {
             text: "0"
             onClicked: addDigit(0)
         }
         TqButton {
-            text: "Accept"
-            bgColor: "secondary2"
-            onClicked: accepted(value)
-            visible: hasAccept
+            text: "←"
+            bgColor: Colors.secondary1[0]
+            onClicked: { absValue = Math.floor(absValue / 10) }
         }
 
         Item {}

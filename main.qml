@@ -57,6 +57,7 @@ Window {
                               member: member,
                               amount: (amount / 100).toFixed(2),
                           });
+
             }
         }
 
