@@ -16,8 +16,11 @@ SOURCES += main.cpp \
     tqmembermodel.cpp
 RESOURCES += qml.qrc
 
-INSTALL_ROOT=$(DESTDIR)
-target.path = /usr/bin
+isEmpty(PREFIX) {
+    PREFIX=/usr
+}
+
+target.path = $${PREFIX}/bin
 INSTALLS += target
 
 HEADERS += \
