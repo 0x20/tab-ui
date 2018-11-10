@@ -221,7 +221,7 @@ Window {
         }
 
         function adjustQuantity(currency, qty) {
-            var index = name;
+            var index = currency;
             var item;
             if (currency instanceof String) {
                 var found = false;
