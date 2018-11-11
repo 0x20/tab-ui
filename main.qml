@@ -38,7 +38,7 @@ Window {
 
         anchors.centerIn: parent
 
-        state: "main"
+        state: "loading"
 
         MainView {
             id: mainView
@@ -87,6 +87,10 @@ Window {
             onCanceled: mainStack.state = "main"
         }
 
+        LoadingView {
+            id: loadingView
+        }
+
         states: [
             State {
                 name: "main"
@@ -108,7 +112,20 @@ Window {
                     target: mainStack
                     currentIndex: 2
                 }
+            },
+            State {
+                name: "loading"
+                PropertyChanges {
+                    target: mainStack
+                    currentIndex: 3
+                }
+                PropertyChanges {
+                    target: loadingView
+                    progress: 0
+                    message: "Loading"
+                }
             }
+
         ]
     }
     RowLayout {
@@ -331,14 +348,39 @@ Window {
         });
     }
 
-    function loadAllData() {
-        Http.get(backend_url + "/api/v1/accounts", function(xhr) {
-            var json = JSON.parse(xhr.responseText)
-            members.loadFromJson(json)
-        })
-        Http.get(backend_url + "/api/v1/products", function(xhr) {
-            var json = JSON.parse(xhr.responseText)
-            productModel.loadFromJson(json)
-        })
+    function loadAllData(refresh) {
+        mainStack.state = "loading";
+        var loadLevel = 0;
+        var maxLoad = (refresh ? 3 : 2);
+        function incrLoadLevel() {
+            loadLevel += 1;
+            if (loadLevel == maxLoad) {
+                mainStack.state = "main";
+            } else {
+                loadingView.progress = loadLevel / maxLoad;
+            }
+        }
+
+        function doReload() {
+            Http.get(backend_url + "/api/v1/accounts", function(xhr) {
+                var json = JSON.parse(xhr.responseText)
+                incrLoadLevel()
+                members.loadFromJson(json)
+            })
+            Http.get(backend_url + "/api/v1/products", function(xhr) {
+                var json = JSON.parse(xhr.responseText)
+                incrLoadLevel()
+                productModel.loadFromJson(json)
+            })
+        }
+
+        if (refresh) {
+            Http.get(application.backend_url + "/api/v1/admin/update", function() {
+                incrLoadLevel()
+                doReload()
+            })
+        } else {
+            doReload()
+        }
     }
 }

@@ -29,10 +29,7 @@ Rectangle {
         TqButton {
             text: "Sync"
             onClicked: {
-                Http.get(application.backend_url + "/api/v1/admin/update", function() {
-                    application.loadAllData()
-                })
-
+                application.loadAllData(true)
             }
         }
 
