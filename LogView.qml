@@ -17,7 +17,7 @@ Rectangle {
                    }
 
             text: message
-            font.family: "monospace"
+            font.family: application.fontFace
             font.pixelSize: application.fontSize
         }
         onCountChanged: {

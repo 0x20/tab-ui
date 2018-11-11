@@ -101,17 +101,17 @@ Rectangle {
                 Layout.alignment: Qt.AlignRight
                 text: "Will transfer "
                 horizontalAlignment: Text.AlignRight
-                font.pixelSize: fontSize
                 color: "white"
-                font.family: "Sans"
+                font.pixelSize: application.fontSize
+                font.family: application.fontFace
                 width: pendingDisplay.colWidth
             }
 
             Text {
                 text: application.formatCurrency(amount.value)
                 color: "white"
-                font.pixelSize: fontSize
-                font.family: "Monospace"
+                font.pixelSize: application.fontSize
+                font.family: application.fontFace
                 width: pendingDisplay.colWidth
             }
 
@@ -119,17 +119,17 @@ Rectangle {
                 Layout.alignment: Qt.AlignRight
                 text: "from "
                 horizontalAlignment: Text.AlignRight
-                font.pixelSize: fontSize
+                font.pixelSize: application.fontSize
+                font.family: application.fontFace
                 color: "white"
-                font.family: "Sans"
                 width: pendingDisplay.colWidth
             }
 
             Text {
                 text: fromSelector.selectedName
                 color: "white"
-                font.pixelSize: fontSize
-                font.family: "Monospace"
+                font.pixelSize: application.fontSize
+                font.family: application.fontFace
                 width: pendingDisplay.colWidth
             }
 
@@ -137,9 +137,9 @@ Rectangle {
                 Layout.alignment: Qt.AlignRight
                 text: "to "
                 horizontalAlignment: Text.AlignRight
-                font.pixelSize: fontSize
                 color: "white"
-                font.family: "Sans"
+                font.pixelSize: application.fontSize
+                font.family: application.fontFace
                 width: pendingDisplay.colWidth
             }
 
@@ -147,7 +147,7 @@ Rectangle {
                 text: toSelector.selectedName
                 color: "white"
                 font.pixelSize: fontSize
-                font.family: "Monospace"
+                font.family: application.fontFace
                 width: pendingDisplay.colWidth
             }
 

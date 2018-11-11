@@ -34,24 +34,24 @@ Rectangle {
                     width: 50
                     horizontalAlignment: Text.AlignRight
                     text: (count > 1) ? (count + "x ") : ""
-                    font.pixelSize: 20
-                    font.family: "sans"
+                    font.pixelSize: application.fontSize
+                    font.family: application.fontFace
                 }
 
                 Text {
                     width: parent.width - qtyLabel.width - costLabel.width
                     color: "white"
                     text: name
-                    font.pixelSize: 20
-                    font.family: "sans"
+                    font.pixelSize: application.fontSize
+                    font.family: application.fontFace
                 }
                 Text {
                     id: costLabel
                     color: "white"
                     width: 100
                     horizontalAlignment: Text.AlignRight
-                    font.pixelSize: 20
-                    font.family: "monospace"
+                    font.pixelSize: application.fontSize
+                    font.family: application.fontFace
                     text: {
                         application.formatCurrency(cost * count)
                     }
@@ -87,8 +87,8 @@ Rectangle {
 
         Text {
             color: "white"
-            font.pixelSize: 20
-            font.family: "sans"
+            font.pixelSize: application.fontSize
+            font.family: application.fontFace
             text: "         Total: "
             width: parent.width - totalLabel.width
         }
@@ -98,8 +98,8 @@ Rectangle {
             color: "white"
 
             width: 120
-            font.pixelSize: 20
-            font.family: "monospace"
+            font.pixelSize: application.fontSize
+            font.family: application.fontFace
             horizontalAlignment: Text.AlignRight
 
             text: {

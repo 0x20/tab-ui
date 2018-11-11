@@ -14,7 +14,9 @@ Window {
     height: 480
     title: qsTr("Hello World")
 
-    property int fontSize: 20
+    property int fontSize: 16
+    property string fontFace: fontFaceInput.text
+
     property int buttonWidth: 123
     property int buttonHeight: (Math.sqrt(5) - 1) / 2 * buttonWidth
 
@@ -131,6 +133,10 @@ Window {
         TqButton {
             text: "Toggle layout debug"
             onClicked: layoutDebug = !layoutDebug
+        }
+        TextInput {
+            id: fontFaceInput
+            text: "Roboto"
         }
     }
 

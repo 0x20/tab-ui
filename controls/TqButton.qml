@@ -14,7 +14,7 @@ Button {
     palette.buttonText: "white"
     palette.light:(Colors.hasOwnProperty(bgColor)) ? Colors[bgColor][4] : Qt.lighter(bgColor)
     opacity: if (enabled) { return 1.0 } else { return 0.5 }
-    font.family: "sans"
+    font.family: application.fontFace
     font.pixelSize: application.fontSize
     implicitHeight: application.buttonHeight
     implicitWidth: application.buttonWidth
