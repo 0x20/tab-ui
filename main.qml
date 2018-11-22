@@ -163,6 +163,12 @@ Window {
 
     MemberModel {
         id: members
+        
+        property int dataGeneration: 0
+        
+        onDataChanged: {
+            dataGeneration++
+        }
     }
 
     ListModel {

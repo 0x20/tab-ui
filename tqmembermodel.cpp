@@ -187,7 +187,13 @@ bool TqMemberModel::loadFromJson(QMap<QString, QVariant> data) {
         m_members = newMembers;
         m_memberPositions = memberPos;
     }
+    if (oldLength < newLength) {
+        emit countChanged(newLength);
+    }
     dataChanged(createIndex(0, 0), createIndex(qMin(oldLength, newLength) - 1, 0));
+    if (newLength < oldLength) {
+        emit countChanged(newLength);
+    }
     return true;
 }
 
@@ -273,3 +279,9 @@ QVariant TqMemberModel::get(QVariant id) {
 	result["item_count"] = member->items;
 	return result;
 }
+
+int TqMemberModel::getCount() const
+{
+    return this->rowCount();
+}
+

@@ -33,6 +33,8 @@ public:
 	Q_INVOKABLE void applyDelta(QString internal_name, int dBalance, int dItems);
 	Q_INVOKABLE QVariant get(QVariant id);
 
+    Q_PROPERTY(int count READ getCount NOTIFY countChanged)
+    
     // Header:
     QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const override;
 
@@ -52,7 +54,11 @@ public:
     // Role names
     QHash<int, QByteArray> roleNames() const override;
 
+signals:
+    void countChanged(int count);
+    
 private:
+    int getCount() const;
 };
 
 #endif // TQMEMBERMODEL_H

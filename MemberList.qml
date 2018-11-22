@@ -7,66 +7,81 @@ import "controls"
 
 
 Rectangle {
-    color: application.layoutColor("#002244")
+    id: control
 
     signal selected(string name)
-    property string selectedName: null
+    property string selectedName: selectedIndex < 0 ? null : members.get(selectedIndex)["internal_name"]
     property bool selectionEnabled: false
-    property bool hasSelection: selectedName != ""
+    property bool hasSelection: selectedIndex != -1
+    property int selectedIndex: -1
+
+    color: application.layoutColor("#002244")
 
     Component {
         id: memberEntry
 
         TqButton {
             onClicked: {
-                selectedName = internal_name;
+                selectedIndex = index
                 selected(internal_name)
             }
 
             bgColor: "primary"
-            shade: (selectedName == internal_name && selectionEnabled) ? 4 : 0
+            shade: (selectedIndex == index) ? 4 : 0
             width: memberGrid.cellWidth - 10
             height: memberGrid.cellHeight - 10
             text: name
         }
     }
 
-    GridLayout {
-        id: pagedGrid
-        property int page: 0
-        property int ncol: Math.floor(parent.width / (application.buttonWidth + 10))
-        property int nrow: Math.floor(parent.height / (application.buttonHeight + 10))
-        
-        columns: ncol
-        //anchors.margins: 10
-        anchors.top: parent.top
-        anchors.left: parent.left
-        //anchors.right: parent.right
-        height: nrow * (application.buttonHeight + 10) - 10
-        
-        
-        anchors.topMargin: 10
-        anchors.leftMargin: 10
-        //anchors.bottomMargin: 10
-        //anchors.rightMargin: 10
-        
-        //anchors.fill: parent
+    property int page: 0
+    property int _perPage: _nrow * _ncol - 2
+    property int _maxPage: Math.ceil(members.count / (_nrow * _ncol - 2))
+    property int _offset: page * _perPage
+    property int _ncol: Math.floor(width / _cell_width)
+    property int _nrow: Math.floor(height / _cell_height)
+    property int _cell_width: application.buttonWidth + 10
+    property int _cell_height: application.buttonHeight + 10
+    
+    Component.onCompleted: {
+        console.log(members.count)
+    }
+    
+    TqButton {
+        text: "←"
+        x: 10
+        y: (_nrow - 1) * _cell_height + 10
+        onClicked: page -= 1
+        visible: page > 0
+    }
+
+    TqButton {
+        text: "→"
+        x: 10 + _cell_width * 2
+        y: (_nrow - 1) * _cell_height + 10
+        onClicked: page += 1
+        visible: page < _maxPage - 1
+    }
+
+    Repeater {
+        model: Math.min(members.count - _offset, _perPage)
         TqButton {
-            text: "←"
-            Layout.row: pagedGrid.nrow - 1
-            onClicked: console.log(pagedGrid.nrow + ", " + pagedGrid.ncol)
-        }
-        
-        Repeater {
-            model: pagedGrid.nrow * pagedGrid.ncol - 2
-            TqButton {
-                property int row: index / pagedGrid.ncol
-                
-                Layout.row: row
-                Layout.column: index % pagedGrid.ncol + (row == pagedGrid.nrow - 1 ? 1 : 0)
-                text: index + ""
-                bgColor: "complement"
-                
+            property int _subindex: index
+            property int _row: _subindex / _ncol
+            property int _itemIdx: index + _offset
+            
+            x: (_subindex % _ncol + (_row == _nrow - 1 ? 1 : 0)) * _cell_width + 10
+            y: _row * _cell_height + 10
+            // This is a bit weird; we need to reference the data generation so that it 
+            // updates when the model does
+            text: members.get((members.dataGeneration, _itemIdx))["name"]
+            bgColor: "complement"
+            shade: (selectedName == internal_name && selectionEnabled) ? 4 : 0
+            
+            onClicked: {
+                var internal_name = members.get(_itemIdx)["internal_name"]
+                selectedIndex = _itemIdx
+                selected(internal_name)
             }
         }
     }
