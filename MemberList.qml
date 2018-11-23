@@ -17,23 +17,6 @@ Rectangle {
 
     color: application.layoutColor("#002244")
 
-    Component {
-        id: memberEntry
-
-        TqButton {
-            onClicked: {
-                selectedIndex = index
-                selected(internal_name)
-            }
-
-            bgColor: "primary"
-            shade: (selectedIndex == index) ? 4 : 0
-            width: memberGrid.cellWidth - 10
-            height: memberGrid.cellHeight - 10
-            text: name
-        }
-    }
-
     property int page: 0
     property int _perPage: _nrow * _ncol - 2
     property int _maxPage: Math.ceil(members.count / (_nrow * _ncol - 2))
@@ -42,10 +25,6 @@ Rectangle {
     property int _nrow: Math.floor(height / _cell_height)
     property int _cell_width: application.buttonWidth + 10
     property int _cell_height: application.buttonHeight + 10
-    
-    Component.onCompleted: {
-        console.log(members.count)
-    }
     
     TqButton {
         text: "←"
@@ -84,18 +63,5 @@ Rectangle {
                 selected(internal_name)
             }
         }
-    }
-    
-    GridView {
-        clip: true
-        visible: false
-        id: memberGrid
-        cellWidth: application.buttonWidth + 10
-        cellHeight: application.buttonHeight + 10
-        model: members
-        delegate: memberEntry
-        anchors.fill: parent
-        anchors.leftMargin: 10
-        anchors.topMargin: 10
     }
 }
