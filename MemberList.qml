@@ -75,8 +75,8 @@ Rectangle {
             // This is a bit weird; we need to reference the data generation so that it 
             // updates when the model does
             text: members.get((members.dataGeneration, _itemIdx))["name"]
-            bgColor: "complement"
-            shade: (selectedName == internal_name && selectionEnabled) ? 4 : 0
+            bgColor: "primary"
+            shade: (selectedIndex == _itemIdx && selectionEnabled) ? 4 : 0
             
             onClicked: {
                 var internal_name = members.get(_itemIdx)["internal_name"]
