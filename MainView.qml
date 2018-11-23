@@ -80,6 +80,10 @@ Rectangle {
 
         ProductList {
             id: productList
+            onSelected: {
+                var product = productModel.get(index)
+                tallyModel.addItem(product.internal_name, product.name, product.cost, 1)
+            }
         }
 
 

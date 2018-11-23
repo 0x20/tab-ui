@@ -2,7 +2,6 @@ import QtQml 2.2
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
-import QtQuick.XmlListModel 2.0
 import com.thequux.tab 1.0
 import "controls"
 import "http.js" as Http
@@ -173,6 +172,12 @@ Window {
 
     ListModel {
         id: productModel
+        
+        property int dataGeneration: 0
+        
+        onDataChanged: {
+            dataGeneration += 1
+        }
 
         function loadFromJson(json) {
             var items = []
@@ -191,8 +196,6 @@ Window {
             for (var i = 0; i < items.length; i++) {
                 append(items[i]);
             }
-
-            // TODO: sort the list?
         }
     }
 
