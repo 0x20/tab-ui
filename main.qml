@@ -306,7 +306,7 @@ Window {
         var locale = Qt.locale("nl_BE");
         //var locale = Qt.locale("en_US");
 
-        return (cents / 100).toLocaleCurrencyString(locale, "€ ")
+        return "€ " + (cents / 100).toFixed(2)
 
     }
 

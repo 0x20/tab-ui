@@ -92,6 +92,7 @@ Rectangle {
                 id: depositEntry
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.top: parent.top
+                anchors.topMargin: 10
 
                 hasNegate: true
             }
