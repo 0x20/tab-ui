@@ -68,7 +68,6 @@ Item {
                 position = 1
             }
             enabled: position == 2
-            //visible: hasNegate
         }
         TqButton {
             Layout.row: 4

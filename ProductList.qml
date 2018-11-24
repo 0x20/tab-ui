@@ -25,7 +25,7 @@ Rectangle {
         x: 10
         y: (_nrow - 1) * _cell_height + 10
         onClicked: page -= 1
-        visible: page > 0
+        enabled: page > 0
     }
 
     TqButton {
@@ -33,7 +33,7 @@ Rectangle {
         x: 10 + _cell_width * (_ncol - 1)
         y: (_nrow - 1) * _cell_height + 10
         onClicked: page += 1
-        visible: page < (_maxPage - 1)
+        enabled: page < (_maxPage - 1)
     }
 
     Repeater {

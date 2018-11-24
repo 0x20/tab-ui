@@ -117,7 +117,7 @@ Rectangle {
         height: application.buttonHeight
         TqButton {
             text: "Cancel Transaction"
-            visible: tallyModel.count > 0
+            enabled: tallyModel.count > 0
             bgColor: Colors.secondary1[0]
             onClicked: {
                 tallyModel.clear()
@@ -127,7 +127,7 @@ Rectangle {
         TqButton {
             anchors.right: parent.right
             anchors.margins: 0
-            visible: tally.hasSelection
+            enabled: tally.hasSelection
             bgColor: Colors.secondary1[0]
 
             text: "Remove Item"
