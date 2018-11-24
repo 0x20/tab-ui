@@ -24,9 +24,7 @@ Item {
             position--;
         } else if (position == -1) {
             // do nothing
-        }
-        
-        console.log("<" + application.formatCurrency(value) + ">")
+        }        
     }
 
     function backspace() {
@@ -65,7 +63,7 @@ Item {
             Layout.row: 4
             Layout.column: 0
             text: "."
-            bgColor: "secondary2"
+            bgColor: "complement"
             onClicked: if (position == 2) {
                 position = 1
             }
@@ -87,38 +85,46 @@ Item {
             onClicked: backspace()
         }
 
-        Item {}
-    }
+        TqButton {
+            visible: hasNegate
+            Layout.row: 5
+            Layout.column: 0
+            bgColor: "complement"
+            shade: sign ? 3 : 0
+            text: "–"
+            onClicked: sign = !sign
+        }
+        
+        Rectangle {
+            color: Colors.gray[1]
+            
+            Layout.columnSpan: hasNegate ? 2 : 3
+            Layout.row: 5
+            Layout.column: hasNegate ? 1 : 0
+            
+            width: (application.buttonWidth + 10) * (hasNegate ? 2 : 3) - 10
+            height: application.buttonHeight
+            
+            Text {
+                horizontalAlignment: Text.AlignRight
+                anchors.margins: {
+                    left: 10
+                    right: 10
+                    top: 10
+                    bottom: 10
+                }
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.right: parent.right
+                width: parent.width
 
-    Rectangle {
-        color: Colors.complement[0]
-        width: padLayout.width
-        anchors.top: padLayout.bottom
-        anchors.topMargin: 10
-        anchors.left: padLayout.left
-        anchors.right: padLayout.right
-        height: fontSize + 20
-
-        Text {
-            horizontalAlignment: Text.AlignRight
-            anchors.margins: {
-                left: 10
-                right: 10
-                top: 10
-                bottom: 10
-            }
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.right: parent.right
-            width: parent.width
-
-            color: "white"
-            font.pixelSize: application.fontSize
-            font.family: "monospace"
-            text: {
-                var rawText = application.formatCurrency(value)
-                rawText.substring(0, rawText.length - position - 1) + "   ".substr(2 - position)
+                color: "white"
+                font.pixelSize: application.fontSize * 1.5
+                font.family: "monospace"
+                text: {
+                    var rawText = application.formatCurrency(value)
+                    rawText.substring(0, rawText.length - position - 1) + "    ".substr(2 - position)
+                }
             }
         }
     }
-
 }

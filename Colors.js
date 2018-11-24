@@ -35,3 +35,11 @@ var complement = [
   "#9B5B00",
   "#D37C00",
 ];
+
+var gray = (function() {
+    var result = [];
+    for (var i = 0; i < primary.length; i++) {
+        result.push(Qt.hsva(0,0, Qt.lighter(primary[i], 1.0).hsvValue, 1));
+    }
+    return result;
+})();
