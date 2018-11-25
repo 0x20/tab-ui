@@ -338,22 +338,12 @@ Window {
                    (totalItems > 1 ? "s" : "") + " for " + formatCurrency(totalCost),
                    "buy", req);
 
-
-        Http.post(backend_url + "/api/v1/txn/buy", req, function(xhr) {
-            var json = JSON.parse(xhr.responseText);
-            for (var member_name in json.members) {
-                var member = json.members[member_name];
-                members.applyDelta(member_name, member.balance, member.items)
-            }
-            logEntry.confirm(json.message);
-        });
-
         tallyModel.clear()
     }
 
     function performTxn(logMsg, type, req) {
         var logEntry = logModel.logPending(logMsg);
-        Http.post(backend_url + "/api/v1/txn/" + type, req, function(xhr) {
+        Http.post(backend_url + "/api/v1/txn/" + type, req).then(function(xhr) {
             var json = JSON.parse(xhr.responseText);
             for (var member_name in json.members) {
                 var member = json.members[member_name];
