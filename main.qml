@@ -2,6 +2,7 @@ import QtQml 2.2
 import QtQuick 2.9
 import QtQuick.Window 2.2
 import QtQuick.Layouts 1.3
+import QuickPromise 1.0
 import com.thequux.tab 1.0
 import "controls"
 import "http.js" as Http
@@ -88,6 +89,11 @@ Window {
 
         LoadingView {
             id: loadingView
+            
+            Timer {
+                id: reloadTimer
+                interval: 5000
+            }
         }
 
         states: [
@@ -180,7 +186,7 @@ Window {
         }
 
         function loadFromJson(json) {
-            var items = []
+            var items = [];
             for (var key in json) {
                 var product = json[key]
                 items.push({
@@ -360,36 +366,55 @@ Window {
     function loadAllData(refresh) {
         mainStack.state = "loading";
         var loadLevel = 0;
-        var maxLoad = (refresh ? 3 : 2);
+        var maxLoad = 3;
         function incrLoadLevel() {
             loadLevel += 1;
-            if (loadLevel == maxLoad) {
-                mainStack.state = "main";
-            } else {
-                loadingView.progress = loadLevel / maxLoad;
-            }
+            loadingView.progress = loadLevel / maxLoad;
         }
 
         function doReload() {
-            Http.get(backend_url + "/api/v1/accounts", function(xhr) {
+            var accounts = Http.get(backend_url + "/api/v1/accounts").then(function(xhr) {
                 var json = JSON.parse(xhr.responseText)
-                incrLoadLevel()
                 members.loadFromJson(json)
-            })
-            Http.get(backend_url + "/api/v1/products", function(xhr) {
+                incrLoadLevel();
+                return true;
+            });
+            var products = Http.get(backend_url + "/api/v1/products").then(function(xhr) {
+                console.log("here");
                 var json = JSON.parse(xhr.responseText)
-                incrLoadLevel()
+                console.log("Adding items " + JSON.stringify(json));
                 productModel.loadFromJson(json)
-            })
+                incrLoadLevel();
+                return true;
+            });
+            return Q.all([accounts, products]);
         }
 
+        var start_url;
         if (refresh) {
-            Http.get(application.backend_url + "/api/v1/admin/update", function() {
-                incrLoadLevel()
-                doReload()
-            })
+            start_url = application.backend_url + "/api/v1/admin/update";
         } else {
-            doReload()
+            start_url = application.backend_url + "/api/v1/ping";
         }
+        
+        function doStart() {
+            loadingView.message = "Waiting for server";
+            return Http.get(start_url).then(function() {
+                loadingView.message = "Loading...";
+                incrLoadLevel();
+                return doReload()
+            }).then(null, function() {
+                loadingView.message = "Failed";
+                return new Q.Promise(function(resolve, reject) { 
+                    console.log("here");
+                    Q.setTimeout(function() {resolve(true)}, 5000);
+
+                }).then(doStart);
+            });
+        }
+        
+        doStart().then(function() {
+            mainStack.state = "main";
+        });
     }
 }
