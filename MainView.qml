@@ -126,7 +126,7 @@ Rectangle {
                 var pos = members.memberPosition(name)
                 var member = members.get(pos)
 
-                logModel.log(member["name"] + " has a balance of " + formatCurrency(member["balance"]))
+                logModel.log(member["name"] + " has a balance of " + formatCurrency(member["balance"])).confirm();
             }
         }
     }

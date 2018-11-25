@@ -209,7 +209,7 @@ Window {
         id: logModel
 
         function log(message) {
-            append({message: message, status: "pending"})
+            append({message: message, status: "confirmed"})
         }
 
         function logPending(message) {
