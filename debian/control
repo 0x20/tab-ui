@@ -10,5 +10,7 @@ Vcs-Git: https://github.com/0x20/tab-ui
 
 Package: tab-ui
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: ${shlibs:Depends}, ${misc:Depends},
+  qml-module-qtquick2, qml-module-qtquick-layouts,
+  qml-module-qtquick-window2, qml-module-qtquick-controls2
 Description: Bar tab frontend
