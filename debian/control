@@ -2,7 +2,7 @@ Source: tab-ui
 Section: misc
 Priority: optional
 Maintainer: TQ Hirsch <thequux@thequux.com>
-Build-Depends: debhelper (>= 11)
+Build-Depends: debhelper (>= 11), qtbase5-dev (>= 5.11), qtdeclarative5-dev (>= 5.11)
 Standards-Version: 4.1.3
 Homepage: https://github.com/0x20/tab-ui
 Vcs-Browser: https://github.com/0x20/tab-ui

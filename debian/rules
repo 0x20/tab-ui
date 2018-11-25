@@ -7,7 +7,7 @@
 # see FEATURE AREAS in dpkg-buildflags(1)
 #export DEB_BUILD_MAINT_OPTIONS = hardening=+all
 
-export QT_SELECT=1
+export QT_SELECT=5
 %:
 	dh $@
 
