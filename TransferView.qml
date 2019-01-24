@@ -24,8 +24,8 @@ Rectangle {
 //        border.color: "white"
 
         selectionEnabled: true
-        height: (parent.height - buttonHeight) / 2
 
+        height: (parent.height - buttonHeight) / 2
         width: application.buttonWidth * 3 + 40
     }
 
@@ -33,10 +33,10 @@ Rectangle {
         id: toSelector
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        height: (parent.height - buttonHeight) / 2 + 10
 
         selectionEnabled: true
 
+        height: (parent.height - buttonHeight) / 2 + 10
         width: application.buttonWidth * 3 + 40
 
     }
