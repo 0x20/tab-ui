@@ -1,3 +1,10 @@
+tab-ui (2019.1.25) UNRELEASED; urgency=medium
+
+  * Added a timestamp and a message indicating the status of
+    the originating action to each log message
+
+ -- TQ Hirsch <thequux@thequux.com>  Fri, 25 Jan 2019 00:28:22 +0100
+
 tab-ui (0.2) unstable; urgency=medium
 
   * Initial Release.
