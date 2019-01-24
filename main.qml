@@ -209,18 +209,24 @@ Window {
         id: logModel
 
         function log(message) {
-            append({message: message, status: "confirmed"})
+            logPending(message).confirm()
         }
 
         function logPending(message) {
             var i = count;
-            append({message: message, status: "pending"})
+            var timestamp = new Date()
+            append({
+                       message: message,
+                       status: "pending",
+                       timestamp: timestamp,
+                   })
             return {
                 confirm: function(newMessage) {
                     if (newMessage) {
                         set(i, {
                                 message: newMessage,
                                 status: "confirmed",
+                                timestamp: timestamp,
                             });
                     } else {
                         setProperty(i, "status", "confirmed");

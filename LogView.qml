@@ -16,7 +16,22 @@ Rectangle {
                    default: return "#0088ff";
                    }
 
-            text: message
+            text: {
+                var ts_string = "<" + timestamp.toLocaleString(Qt.locale(), "yyyy/MM/dd  HH:mm:ss") + "> ";
+                var suffix = "";
+
+                switch (status) {
+                    case "pending":
+                        suffix = " (pending)";
+                        break;
+                    case "failed":
+                        suffix = " (failed)";
+                        break;
+                    default: suffix = "";
+                }
+
+                return ts_string + message + suffix;
+            }
             font.family: application.fontFace
             font.pixelSize: application.fontSize
         }
