@@ -118,6 +118,7 @@ Rectangle {
                 depositCommand(name, depositEntry.value)
                 depositMode = false
                 depositEntry.reset()
+                resetPages()
             } else if (!depositMode && tallyModel.count > 0) {
                 var bill = []
                 for (var i = 0; i < tallyModel.count; i++) {
@@ -126,6 +127,8 @@ Rectangle {
                 }
                 purchaseCommand(name, bill)
                 tallyModel.clear()
+                resetPages()
+
             } else {
                 var pos = members.memberPosition(name)
                 var member = members.get(pos)
@@ -133,5 +136,10 @@ Rectangle {
                 logModel.log(member["name"] + " has a balance of " + formatCurrency(member["balance"]));
             }
         }
+    }
+
+    function resetPages() {
+        memberList.page = 0
+        productList.page = 0
     }
 }
