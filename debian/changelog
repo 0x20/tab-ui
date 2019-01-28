@@ -1,9 +1,16 @@
-tab-ui (2019.1.25) UNRELEASED; urgency=medium
+tab-ui (2019.1.28) unstable; urgency=medium
+
+  * Always switch to the first page after each transaction
+  * Add some padding around the log and the tally views, to pacify the more OCD members of the space. 
+
+ -- TQ Hirsch <thequux@thequux.com>  Mon, 28 Jan 2019 22:08:58 +0100
+
+tab-ui (2019.1.25) unstable; urgency=medium
 
   * Added a timestamp and a message indicating the status of
     the originating action to each log message
 
- -- TQ Hirsch <thequux@thequux.com>  Fri, 25 Jan 2019 00:28:22 +0100
+ -- TQ Hirsch <thequux@thequux.com>  Mon, 28 Jan 2019 22:08:30 +0100
 
 tab-ui (0.2) unstable; urgency=medium
 
