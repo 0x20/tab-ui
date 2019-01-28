@@ -17,7 +17,7 @@ Rectangle {
                    }
 
             text: {
-                var ts_string = "<" + timestamp.toLocaleString(Qt.locale(), "yyyy/MM/dd  HH:mm:ss") + "> ";
+                var ts_string = "<" + timestamp.toLocaleString(Qt.locale(), "MM/dd HH:mm") + "> ";
                 var suffix = "";
 
                 switch (status) {
