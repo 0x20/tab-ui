@@ -36,6 +36,8 @@ Rectangle {
             right: centerBlip.left
             top: parent.top
             bottom: utils.top
+            leftMargin: 10
+            topMargin: 10
             bottomMargin: 0
         }
 
@@ -49,6 +51,8 @@ Rectangle {
             right: parent.right
             top: parent.top
             bottom: centerBlip.top
+            rightMargin: 10
+            topMargin: 10
         }
     }
 
