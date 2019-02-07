@@ -114,7 +114,7 @@ Rectangle {
         }
 
         onSelected: {
-            if (depositMode && depositEntry.value > 0) {
+            if (depositMode && depositEntry.value != 0) {
                 depositCommand(name, depositEntry.value)
                 depositMode = false
                 depositEntry.reset()

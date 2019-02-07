@@ -1,3 +1,10 @@
+tab-ui (2019.2.7) unstable; urgency=medium
+
+  * Fix negative deposits (i.e., withdrawals)
+  * Fix resetting the transfer screen
+
+ -- TQ Hirsch <thequux@thequux.com>  Thu, 07 Feb 2019 23:07:00 +0100
+
 tab-ui (2019.1.28) unstable; urgency=medium
 
   * Always switch to the first page after each transaction

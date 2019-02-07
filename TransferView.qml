@@ -12,8 +12,8 @@ Rectangle {
     signal canceled
 
     function reset() {
-        fromSelector.selectedName = null
-        toSelector.selectedName = null
+        fromSelector.selectedIndex = -1
+        toSelector.selectedIndex = -1
         amount.reset()
     }
 
