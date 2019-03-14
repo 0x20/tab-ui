@@ -330,7 +330,7 @@ Window {
             member: name,
             products: {},
         };
-
+        var displayName = members.get(name).name;
 
         for (var i = 0; i < bill.length; i++) {
             var item = bill[i]
@@ -340,7 +340,7 @@ Window {
             totalItems += item.count
         }
 
-        performTxn(name + " bought " + totalItems + " item" +
+        performTxn(displayName + " bought " + totalItems + " item" +
                    (totalItems > 1 ? "s" : "") + " for " + formatCurrency(totalCost),
                    "buy", req);
 
@@ -356,6 +356,10 @@ Window {
                 members.applyDelta(member_name, Math.round(member.balance * 100), member.items)
             }
             logEntry.confirm(json.message);
+        }, function(xhr) {
+            // rejected
+            logEntry.fail();
+            logModel.log("Failed to commit transaction: " + xhr.status + " " + xhr.statusText).fail();
         });
     }
 

@@ -126,7 +126,7 @@ Rectangle {
             }
 
             Text {
-                text: fromSelector.selectedName
+                text: members.get(fromSelector.selectedName).name
                 color: "white"
                 font.pixelSize: application.fontSize
                 font.family: application.fontFace
@@ -144,7 +144,7 @@ Rectangle {
             }
 
             Text {
-                text: toSelector.selectedName
+                text: members.get(toSelector.selectedName).name
                 color: "white"
                 font.pixelSize: fontSize
                 font.family: application.fontFace
