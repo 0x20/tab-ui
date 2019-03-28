@@ -1,4 +1,10 @@
-tab-ui (2019.3.14) UNRELEASED; urgency=medium
+tab-ui (2019.3.29) unstable; urgency=medium
+
+  * Added striping to background of stats view
+
+ -- TQ Hirsch <thequux@thequux.com>  Fri, 29 Mar 2019 00:12:02 +0100
+
+tab-ui (2019.3.14) unstable; urgency=medium
 
   * Fixed formatting of display name
   * Additional logging of http errors

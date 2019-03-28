@@ -72,33 +72,39 @@ Rectangle {
                }
            }
 
-           delegate: Row {
+           delegate: Rectangle {
+               color: (index % 2 > 0) ? Colors.primary[1] : "black"
                width: parent.width
-               Text {
-                   width: parent.width - itemQty.width - balanceLbl.width
-                   text: name
-                   color: "white"
-                   font.pixelSize: fontSize
-               }
+               height: fontSize * 1.2
 
-               Text {
-                   id: itemQty
-                   width: 100
-                   text: items_bought
-                   color: "white"
-                   font.pixelSize: fontSize
-                   horizontalAlignment: Text.AlignRight
-               }
+               Row {
+                   width: parent.width
 
-               Text {
-                   width: 150
-                   id: balanceLbl
-                   text: formatCurrency(balance)
-                   color: "white"
-                   font.pixelSize: fontSize
-                   horizontalAlignment: Text.AlignRight
-               }
+                   Text {
+                       width: parent.width - itemQty.width - balanceLbl.width
+                       text: name
+                       color: "white"
+                       font.pixelSize: fontSize
+                   }
 
+                   Text {
+                       id: itemQty
+                       width: 100
+                       text: items_bought
+                       color: "white"
+                       font.pixelSize: fontSize
+                       horizontalAlignment: Text.AlignRight
+                   }
+
+                   Text {
+                       width: 150
+                       id: balanceLbl
+                       text: formatCurrency(balance)
+                       color: "white"
+                       font.pixelSize: fontSize
+                       horizontalAlignment: Text.AlignRight
+                   }
+              }
            }
        }
     }
