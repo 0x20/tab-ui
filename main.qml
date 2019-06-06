@@ -23,6 +23,20 @@ Window {
     property string backend_url: Qt.application.arguments[1] || "http://localhost:4903"
     property bool layoutDebug: false
 
+    Timer {
+        interval: 3600000 // hourly
+        repeat: true
+        running: true
+        onTriggered: {
+            var date = new Date();
+            if (date.getDay() == 0 && date.getMonth() == 3) {
+                application.fontFace = "Comic Sans MS"
+            } else {
+                application.fontFace = fontFaceInput.text
+            }
+        }
+    }
+
     function layoutColor(color) {
         if (layoutDebug) {
             return color;

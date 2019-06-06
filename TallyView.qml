@@ -89,7 +89,7 @@ Rectangle {
             color: "white"
             font.pixelSize: application.fontSize
             font.family: application.fontFace
-            text: "         Total: "
+            text: "   Total: "
             width: parent.width - totalLabel.width
         }
 
@@ -126,6 +126,26 @@ Rectangle {
                 tallyModel.clear()
             }
         }
+
+        Text {
+            anchors.centerIn: parent
+
+            text: curDate.toLocaleString(Qt.locale(""), "yyyy-MM-dd\nHH:mm:ss")
+
+            color: "white"
+            font.pixelSize: application.fontSize
+            font.family: application.fontFace
+            horizontalAlignment: Text.AlignHCenter
+
+            property var curDate: new Date()
+            Timer {
+                interval: 200
+                running: true
+                repeat: true
+                onTriggered: parent.curDate = new Date()
+            }
+        }
+
 
         TqButton {
             anchors.right: parent.right
