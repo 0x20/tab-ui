@@ -53,7 +53,16 @@ Rectangle {
             // This is a bit weird; we need to reference the data generation so that it 
             // updates when the model does
             text: members.get((members.dataGeneration, _itemIdx))["name"]
-            bgColor: "primary"
+            // bgColor: (members.get((members.dataGeneration, _itemIdx))["name"] === "--CASH--" || members.get((members.dataGeneration, _itemIdx))["balance"] >= 0) ? "primary" : "secondary1"
+            bgColor: {
+                if (members.get((members.dataGeneration, _itemIdx))["name"] === "--CASH--") {
+                    return "secondary2";
+                } else if (members.get((members.dataGeneration, _itemIdx))["balance"] >= 0) {
+                    return "primary"
+                } else {
+                    return"secondary1"
+                }
+            }
             shade: (selectedIndex == _itemIdx && selectionEnabled) ? 4 : 0
             
             onClicked: {
