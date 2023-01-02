@@ -151,7 +151,7 @@ bool TqMemberModel::loadFromJson(QMap<QString, QVariant> data) {
         newMembers.push_back(newMember);
     }
 
-    qSort(newMembers.begin(), newMembers.end(), [](BarMember &a, BarMember &b) {
+    std::sort(newMembers.begin(), newMembers.end(), [](BarMember &a, BarMember &b) {
         // Cash should be sorted first
         if (a.internal_name == "--cash--") {
             return true;

@@ -12,10 +12,12 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    visibility: Window.Maximized
+    title: qsTr("Hackerspace.gent tab-ui")
+    color: "black"
 
     property int fontSize: 16
-    property string fontFace: fontFaceInput.text
+    property string fontFace: "Roboto"
 
     property int buttonWidth: 123
     property int buttonHeight: (Math.sqrt(5) - 1) / 2 * buttonWidth
@@ -32,7 +34,7 @@ Window {
             if (date.getDay() == 0 && date.getMonth() == 3) {
                 application.fontFace = "Comic Sans MS"
             } else {
-                application.fontFace = fontFaceInput.text
+                application.fontFace = "Roboto"
             }
         }
     }
@@ -147,34 +149,7 @@ Window {
 
         ]
     }
-    RowLayout {
-        anchors.top: mainStack.bottom
-        anchors.left: mainStack.left
-        anchors.right: parent.right
 
-        spacing: 10
-
-        TqButton {
-            text: "text-"
-            onClicked: { fontSize -= 1 }
-        }
-        TqButton {
-            text: "text+"
-            onClicked: { fontSize += 1 }
-        }
-        Text {
-            text: "font size: " + fontSize
-            font.pixelSize: fontSize
-        }
-        TqButton {
-            text: "Toggle layout debug"
-            onClicked: layoutDebug = !layoutDebug
-        }
-        TextInput {
-            id: fontFaceInput
-            text: "Roboto"
-        }
-    }
 
     Component.onCompleted: {
         loadAllData()
